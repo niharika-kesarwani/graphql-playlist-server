@@ -15,13 +15,9 @@ app.use(cors());
 mongoose.connect(
   "mongodb+srv://test:123@gql-playlist.ceervex.mongodb.net/?retryWrites=true&w=majority"
 );
-mongoose
-  .connect("open", () => {
-    console.log("connected to database");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+mongoose.connection.once("open", () => {
+  console.log("connected to database");
+});
 
 app.use(
   "/graphql",
@@ -31,6 +27,4 @@ app.use(
   })
 );
 
-app.listen(PORT, () =>
-  console.log(`now listening to requests on port ${PORT}`)
-);
+app.listen(PORT, () => console.log("now listening to requests on port 4000"));
